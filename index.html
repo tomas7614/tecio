@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="lt" data-theme="nordic">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biudžetas 2019 — finansinė apžvalga</title>
+<style>
+  /* ── Temos ────────────────────────────────────────────────────────────────
+     Kiekvienos temos serijų spalvos (--s1, --s2, --neg) patikrintos
+     dataviz validatoriumi prieš tos temos paviršių: šviesumo juosta,
+     spalvingumo riba, daltonizmo atskyrimas ir kontrastas — visos PASS.     */
+
+  /* 1 · NORDIC — konservatyvi, korporatyvinė (šviesi) */
+  :root[data-theme="nordic"] {
+    color-scheme: light;
+    --plane:#eef2f6; --surface:#ffffff; --shadow:0 1px 2px rgba(16,32,52,.05), 0 8px 24px -12px rgba(16,32,52,.14);
+    --ink:#0f1c2e; --ink2:#42586f; --muted:#7b8b9c;
+    --grid:#e4eaf0; --axis:#c4d0dc; --border:rgba(15,28,46,0.10); --chip:#eef2f6;
+    --s1:#2a6db0; --s2:#c9752f; --neg:#c0392b; --good:#1a6b3c; --accent:#14477a;
+  }
+  /* 2 · PLATINUM — konservatyvi, grafito niuansas (šviesi) */
+  :root[data-theme="platinum"] {
+    color-scheme: light;
+    --plane:#f1f2f4; --surface:#ffffff; --shadow:0 1px 2px rgba(20,24,28,.05), 0 8px 24px -12px rgba(20,24,28,.12);
+    --ink:#14181c; --ink2:#4a5560; --muted:#828d98;
+    --grid:#e8eaed; --axis:#ccd1d6; --border:rgba(20,24,28,0.10); --chip:#f1f2f4;
+    --s1:#2c5f9c; --s2:#b0562f; --neg:#b3372c; --good:#1a6b3c; --accent:#2f3a45;
+  }
+  /* 3 · EDITORIAL — šviesi, popierinė, redakcinė */
+  :root[data-theme="editorial"] {
+    color-scheme: light;
+    --plane:#f2ede4; --surface:#fbf9f5; --shadow:0 1px 2px rgba(60,45,25,.05), 0 8px 24px -14px rgba(60,45,25,.16);
+    --ink:#20180f; --ink2:#5b4c3c; --muted:#8d7f6e;
+    --grid:#e9e2d6; --axis:#cec3b2; --border:rgba(32,24,15,0.12); --chip:#f2ede4;
+    --s1:#1a6aa8; --s2:#c05f3c; --neg:#c0392b; --good:#1a6b3c; --accent:#9c4a2c;
+  }
+  /* 4 · SAGE — šviesi, ramaus žalsvo popieriaus tonas */
+  :root[data-theme="sage"] {
+    color-scheme: light;
+    --plane:#eceee7; --surface:#fbfbf7; --shadow:0 1px 2px rgba(30,45,35,.05), 0 8px 24px -14px rgba(30,45,35,.14);
+    --ink:#16221b; --ink2:#47584d; --muted:#7d8b81;
+    --grid:#e5e9e1; --axis:#c6cec4; --border:rgba(22,34,27,0.11); --chip:#eceee7;
+    --s1:#1a6aa8; --s2:#c05f3c; --neg:#c0392b; --good:#0b6244; --accent:#0b6244;
+  }
+  /* 5 · OBSIDIAN — prabangi, juoda su auksu (tamsi) */
+  :root[data-theme="obsidian"] {
+    color-scheme: dark;
+    --plane:#0a0a0b; --surface:#131316; --shadow:0 1px 0 rgba(255,255,255,.03), 0 18px 40px -24px rgba(0,0,0,.9);
+    --ink:#f5f2ea; --ink2:#b9b3a5; --muted:#8a8478;
+    --grid:#232327; --axis:#33333a; --border:rgba(201,162,39,0.16); --chip:#1c1c20;
+    --s1:#5f92d1; --s2:#b08d1c; --neg:#e2635c; --good:#4caf6d; --accent:#c9a227;
+  }
+  /* 6 · SAPPHIRE — prabangi, gilaus mėlynumo su variu (tamsi) */
+  :root[data-theme="sapphire"] {
+    color-scheme: dark;
+    --plane:#060a12; --surface:#0b1220; --shadow:0 1px 0 rgba(255,255,255,.03), 0 18px 40px -24px rgba(0,0,0,.85);
+    --ink:#eef3fb; --ink2:#a9b8cd; --muted:#7d8ca2;
+    --grid:#16203200; --axis:#22304a; --border:rgba(176,124,51,0.20); --chip:#111a2b;
+    --s1:#4d8fd6; --s2:#b07c33; --neg:#e2635c; --good:#4caf6d; --accent:#b07c33;
+  }
+  :root[data-theme="sapphire"] { --grid:#152034; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:1180px; margin:0 auto; padding:0 20px 64px; }
+
+  /* premium masthead */
+  .masthead { border-top:3px solid var(--accent); padding-top:22px; margin-bottom:22px; }
+  header.top { display:grid; grid-template-columns:minmax(320px,1fr) auto; align-items:start; gap:24px; }
+  .eyebrow { font-size:11px; letter-spacing:.16em; text-transform:uppercase; font-weight:700;
+    color:var(--accent); margin:0 0 8px; }
+  h1 { font-size:26px; font-weight:640; margin:0 0 6px; letter-spacing:-0.015em; }
+  .sub { color:var(--ink2); font-size:13.5px; margin:0; max-width:62ch; }
+  .client-line { display:flex; align-items:center; gap:8px; margin-top:12px; font-size:13px; color:var(--ink2); }
+  .client-line input {
+    font:inherit; font-size:13px; font-weight:620; color:var(--ink); background:transparent;
+    border:0; border-bottom:1px dashed var(--axis); padding:2px 2px 3px; min-width:210px; outline:none;
+  }
+  .client-line input:focus { border-bottom-color:var(--accent); }
+  .client-line input::placeholder { color:var(--muted); font-weight:400; }
+  .head-right { display:flex; flex-direction:column; align-items:flex-end; gap:9px; }
+  .stamp { font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .btn {
+    font:inherit; font-size:13px; color:var(--ink2); background:var(--surface);
+    border:1px solid var(--border); border-radius:8px; padding:7px 12px; cursor:pointer;
+  }
+  .btn:hover { background:var(--chip); }
+
+  /* theme picker */
+  .themes { display:flex; align-items:center; gap:7px; flex-wrap:wrap; justify-content:flex-end; }
+  .themes .lbl { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.09em; font-weight:600; }
+  .swatch {
+    display:inline-flex; align-items:center; gap:6px; cursor:pointer; border-radius:20px;
+    border:1px solid var(--border); background:var(--surface); padding:4px 10px 4px 5px;
+    font:inherit; font-size:12px; color:var(--ink2); min-height:30px;
+  }
+  .swatch:hover { color:var(--ink); }
+  .swatch[aria-pressed="true"] { border-color:var(--accent); color:var(--ink); font-weight:620; }
+  .swatch i { width:16px; height:16px; border-radius:50%; display:inline-block; border:1px solid var(--border); }
+
+  /* filter row — one row above everything it scopes */
+  .filters { display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:10px 14px; margin-bottom:20px; }
+  .filters .lbl { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; font-weight:600; }
+  .seg { display:flex; gap:2px; background:var(--chip); border-radius:9px; padding:3px; }
+  .seg button {
+    font:inherit; font-size:13px; border:0; background:transparent; color:var(--ink2);
+    padding:6px 13px; border-radius:7px; cursor:pointer; min-height:32px;
+  }
+  .seg button[aria-pressed="true"] { background:var(--surface); color:var(--ink); font-weight:600; box-shadow:0 1px 2px rgba(0,0,0,.08); }
+  .scope-note { font-size:12.5px; color:var(--muted); margin-left:auto; }
+  .refresh { display:inline-flex; align-items:center; gap:7px; min-height:34px; }
+  .refresh .ico { display:inline-block; font-size:14px; line-height:1; }
+  .refresh[data-state="busy"] { color:var(--muted); cursor:progress; }
+  .refresh[data-state="busy"] .ico { animation:spin 900ms linear infinite; }
+  .refresh[data-state="ok"] { color:var(--good); border-color:var(--good); }
+  .refresh[data-state="err"] { color:var(--neg); border-color:var(--neg); }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  @media (prefers-reduced-motion:reduce) { .refresh[data-state="busy"] .ico { animation:none; } }
+
+  /* hero + tiles */
+  .hero-row { display:grid; grid-template-columns:1.15fr 2fr; gap:14px; margin-bottom:14px; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:16px;
+    padding:20px 20px 18px; box-shadow:var(--shadow); }
+  .hero { position:relative; overflow:hidden; }
+  .hero::after { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--accent); opacity:.85; }
+  .hero .label { font-size:12.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; font-weight:600; }
+  .hero .value { font-size:52px; font-weight:660; letter-spacing:-0.02em; line-height:1.05; margin:8px 0 2px; }
+  .hero .meta { font-size:13px; color:var(--ink2); }
+  .tiles { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .tile .label { font-size:12.5px; color:var(--muted); font-weight:600; letter-spacing:.02em; }
+  .tile .value { font-size:26px; font-weight:620; letter-spacing:-0.01em; margin:6px 0 2px; }
+  .tile .delta { font-size:12.5px; color:var(--ink2); }
+  .up { color:var(--good); } .down { color:var(--neg); }
+
+  /* charts */
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .chart-card { position:relative; }
+  .chart-head { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:2px; }
+  .chart-title { font-size:15px; font-weight:620; margin:0; }
+  .chart-sub { font-size:12.5px; color:var(--ink2); margin:2px 0 12px; }
+  .tbtn { font:inherit; font-size:12px; color:var(--muted); background:transparent; border:1px solid var(--border);
+    border-radius:7px; padding:4px 9px; cursor:pointer; white-space:nowrap; }
+  .tbtn:hover { color:var(--ink); background:var(--chip); }
+  .legend { display:flex; gap:16px; flex-wrap:wrap; margin:0 0 6px; }
+  .legend span { display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:var(--ink2); }
+  .key { width:11px; height:11px; border-radius:3px; display:inline-block; }
+  svg { display:block; width:100%; overflow:visible; }
+  .tip {
+    position:absolute; pointer-events:none; opacity:0; transition:opacity .1s;
+    background:var(--surface); border:1px solid var(--border); border-radius:9px;
+    box-shadow:0 6px 20px rgba(0,0,0,.13); padding:9px 11px; font-size:12.5px; z-index:20; min-width:140px;
+  }
+  .tip .t-h { font-weight:640; margin-bottom:5px; color:var(--ink); }
+  .tip .t-r { display:flex; justify-content:space-between; gap:14px; color:var(--ink2); }
+  .tip .t-r b { color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums; }
+  .tip .t-sep { border-top:1px solid var(--border); margin:5px 0; }
+
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { text-align:right; padding:7px 8px; border-bottom:1px solid var(--grid); font-variant-numeric:tabular-nums; }
+  th:first-child, td:first-child { text-align:left; font-variant-numeric:normal; }
+  th { color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
+  tbody tr:hover { background:var(--chip); }
+  .tbl-wrap { max-height:340px; overflow:auto; }
+  .hidden { display:none !important; }
+  th.sortable { cursor:pointer; user-select:none; }
+  th.sortable:hover { color:var(--ink); }
+  input[type=search] { font:inherit; font-size:13px; padding:6px 10px; border-radius:8px;
+    border:1px solid var(--border); background:var(--plane); color:var(--ink); min-width:200px; }
+
+  .notes { margin-top:14px; }
+  .notes h2 { font-size:15px; font-weight:620; margin:0 0 10px; }
+  .notes ul { margin:0; padding-left:18px; color:var(--ink2); }
+  .notes li { margin-bottom:7px; }
+  .notes b { color:var(--ink); font-weight:600; }
+  .foot { color:var(--muted); font-size:12px; margin-top:22px; text-align:center; }
+  .pill { display:inline-block; font-size:11.5px; font-weight:600; padding:2px 8px; border-radius:20px;
+    background:var(--chip); color:var(--ink2); }
+  @media print {
+    .themes, #printBtn, .tbtn, #cliSearch, .seg { display:none !important; }
+    body { background:#fff; }
+    .wrap { max-width:none; padding:0; }
+    .card { box-shadow:none; break-inside:avoid; page-break-inside:avoid; }
+    .grid2 { gap:10px; }
+    .tbl-wrap { max-height:none; overflow:visible; }
+    .client-line input { border-bottom:0; }
+  }
+  @media (max-width:900px) {
+    header.top { grid-template-columns:1fr; }
+    .head-right { align-items:flex-start; }
+    .themes { justify-content:flex-start; }
+    .hero-row, .grid2 { grid-template-columns:1fr; }
+    .tiles { grid-template-columns:repeat(2,1fr); }
+    .hero .value { font-size:44px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="masthead">
+  <header class="top">
+    <div>
+      <p class="eyebrow">Finansinė apžvalga · 2019</p>
+      <h1>Biudžeto ataskaita</h1>
+      <p class="sub">Agentūros metinis biudžetas: 44 klientai sąraše (43 su pajamomis), 28 išlaidų eilutės, 12 mėnesių. Visos sumos eurais, be trečiųjų šalių.</p>
+      <div class="client-line">
+        <span>Parengta:</span>
+        <input id="clientName" type="text" placeholder="Kliento pavadinimas" aria-label="Kliento pavadinimas" spellcheck="false">
+      </div>
+    </div>
+    <div class="head-right">
+      <div class="themes" id="themes" role="group" aria-label="Temos pasirinkimas">
+        <span class="lbl">Tema</span>
+      </div>
+      <span class="stamp" id="stamp"></span>
+      <button class="btn" id="printBtn">Spausdinti / PDF</button>
+    </div>
+  </header>
+  </div>
+
+  <div class="filters">
+    <span class="lbl">Laikotarpis</span>
+    <div class="seg" id="period" role="group" aria-label="Laikotarpio filtras">
+      <button data-p="all" aria-pressed="true">Visi metai</button>
+      <button data-p="h1" aria-pressed="false">I pusmetis</button>
+      <button data-p="h2" aria-pressed="false">II pusmetis</button>
+    </div>
+    <span class="scope-note" id="scopeNote">Rodomi 2019 m. sausio–gruodžio duomenys</span>
+    <button class="btn refresh" id="refreshBtn" hidden aria-live="polite">
+      <span class="ico" aria-hidden="true">⟳</span><span id="refreshLbl">Atnaujinti</span>
+    </button>
+  </div>
+
+  <div class="hero-row">
+    <div class="card hero">
+      <div class="label">Uždarbis</div>
+      <div class="value" id="heroVal">—</div>
+      <div class="meta" id="heroMeta">—</div>
+    </div>
+    <div class="tiles">
+      <div class="card tile"><div class="label">Pajamos</div><div class="value" id="kRev">—</div><div class="delta" id="kRevD">—</div></div>
+      <div class="card tile"><div class="label">Išlaidos</div><div class="value" id="kExp">—</div><div class="delta" id="kExpD">—</div></div>
+      <div class="card tile"><div class="label">Pelno marža</div><div class="value" id="kMar">—</div><div class="delta" id="kMarD">—</div></div>
+      <div class="card tile"><div class="label">Aktyvūs klientai</div><div class="value" id="kCli">—</div><div class="delta" id="kCliD">—</div></div>
+      <div class="card tile"><div class="label">Vid. pajamos / mėn.</div><div class="value" id="kAvg">—</div><div class="delta" id="kAvgD">—</div></div>
+      <div class="card tile"><div class="label">Grynieji sąskaitoje</div><div class="value" id="kCash">—</div><div class="delta" id="kCashD">—</div></div>
+    </div>
+  </div>
+
+  <div class="card chart-card">
+    <div class="chart-head">
+      <div>
+        <h2 class="chart-title">Pajamos ir išlaidos per mėnesį</h2>
+        <p class="chart-sub" id="c1sub">Dvi eilutės viename mastelyje — atotrūkis tarp stulpelių yra to mėnesio rezultatas</p>
+      </div>
+      <button class="tbtn" data-table="c1">Lentelė</button>
+    </div>
+    <div class="legend">
+      <span><i class="key" style="background:var(--s1)"></i>Pajamos</span>
+      <span><i class="key" style="background:var(--s2)"></i>Išlaidos</span>
+    </div>
+    <div id="c1"></div>
+    <div id="c1t" class="hidden tbl-wrap"></div>
+    <div class="tip" id="c1tip"></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card chart-card">
+      <div class="chart-head">
+        <div>
+          <h2 class="chart-title">Mėnesio uždarbis</h2>
+          <p class="chart-sub">Aukštyn — pelnas, žemyn — nuostolis</p>
+        </div>
+        <button class="tbtn" data-table="c2">Lentelė</button>
+      </div>
+      <div id="c2"></div>
+      <div id="c2t" class="hidden tbl-wrap"></div>
+      <div class="tip" id="c2tip"></div>
+    </div>
+    <div class="card chart-card">
+      <div class="chart-head">
+        <div>
+          <h2 class="chart-title">Grynieji sąskaitoje</h2>
+          <p class="chart-sub">Likutis mėnesio 1 dieną</p>
+        </div>
+        <button class="tbtn" data-table="c3">Lentelė</button>
+      </div>
+      <div id="c3"></div>
+      <div id="c3t" class="hidden tbl-wrap"></div>
+      <div class="tip" id="c3tip"></div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card chart-card">
+      <div class="chart-head">
+        <div>
+          <h2 class="chart-title">Didžiausi klientai</h2>
+          <p class="chart-sub" id="c4sub">TOP 12 pagal pajamas; likusieji sujungti į „Kiti“</p>
+        </div>
+        <button class="tbtn" data-table="c4">Lentelė</button>
+      </div>
+      <div id="c4"></div>
+      <div id="c4t" class="hidden tbl-wrap"></div>
+      <div class="tip" id="c4tip"></div>
+    </div>
+    <div class="card chart-card">
+      <div class="chart-head">
+        <div>
+          <h2 class="chart-title">Išlaidų struktūra</h2>
+          <p class="chart-sub" id="c5sub">28 eilutės sugrupuotos į 12 kategorijų</p>
+        </div>
+        <button class="tbtn" data-table="c5">Lentelė</button>
+      </div>
+      <div id="c5"></div>
+      <div id="c5t" class="hidden tbl-wrap"></div>
+      <div class="tip" id="c5tip"></div>
+    </div>
+  </div>
+
+  <div class="card chart-card" style="margin-top:14px">
+    <div class="chart-head">
+      <div>
+        <h2 class="chart-title">Klientų sąrašas</h2>
+        <p class="chart-sub" id="cliSub">Metinės pajamos, aktyvūs mėnesiai ir sutarties galiojimas</p>
+      </div>
+      <input type="search" id="cliSearch" placeholder="Ieškoti kliento…" aria-label="Ieškoti kliento">
+    </div>
+    <div class="tbl-wrap" id="cliTable"></div>
+  </div>
+
+  <div class="card notes">
+    <h2>Ką rodo skaičiai <span class="pill">visi 2019 metai</span></h2>
+    <ul id="insights"></ul>
+  </div>
+
+  <p class="foot">Šaltinis: Biudzetas_Tomui.xlsx, lapas „2019“. Visos sumos suvestos iš pirminio failo ir sutampa su jo eilutėmis „IŠ VISO“.</p>
+</div>
+
+<div id="loadErr" style="display:none;max-width:1180px;margin:0 auto;padding:20px">
+  <div class="card" style="border-color:var(--neg)">
+    <div class="chart-title" style="margin-bottom:6px">Nepavyko įkelti duomenų</div>
+    <p class="chart-sub" id="loadErrMsg" style="margin:0"></p>
+  </div>
+</div>
+<script>
+function boot(){
+let D = window.__DATA__;
+const S = { period:'all' };
+const RANGE = { all:[0,12], h1:[0,6], h2:[6,12] };
+const PLAB = { all:'visi metai', h1:'I pusmetis', h2:'II pusmetis' };
+const GEN = ['sausio','vasario','kovo','balandžio','gegužės','birželio','liepos','rugpjūčio','rugsėjo','spalio','lapkričio','gruodžio'];
+const NOM = ['sausis','vasaris','kovas','balandis','gegužė','birželis','liepa','rugpjūtis','rugsėjis','spalis','lapkritis','gruodis'];
+
+const eur = n => Math.round(n).toLocaleString('lt-LT') + ' €';
+const eurK = n => (Math.abs(n) >= 10000 ? Math.round(n/1000).toLocaleString('lt-LT')+' tūkst. €' : eur(n));
+const pct = n => (n*100).toFixed(1).replace('.',',') + ' %';
+const cssv = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const SVGNS = 'http://www.w3.org/2000/svg';
+const el = (t, a={}) => { const e = document.createElementNS(SVGNS,t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+const sum = a => a.reduce((x,y)=>x+y,0);
+const slice = a => a.slice(...RANGE[S.period]);
+
+/* nice axis ticks */
+function ticks(min, max, n=5){
+  const span = max-min || 1, raw = span/n, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const norm = raw/mag, step = (norm<=1?1:norm<=2?2:norm<=2.5?2.5:norm<=5?5:10)*mag;
+  const out=[]; for(let v=Math.ceil(min/step)*step; v<=max+step*0.001; v+=step) out.push(Math.round(v*1e6)/1e6);
+  return out;
+}
+/* rounded data-end path: square at baseline, 4px round at value end */
+function barPath(x,y,w,h,r,dir){
+  r = Math.max(0, Math.min(r, w/2, h));
+  if (h <= 0.5) return `M${x} ${y+ (dir==='up'?h:0)} h${w}`;
+  if (dir==='up')    return `M${x} ${y+h} V${y+r} a${r} ${r} 0 0 1 ${r} ${-r} h${w-2*r} a${r} ${r} 0 0 1 ${r} ${r} V${y+h} Z`;
+  if (dir==='down')  return `M${x} ${y} V${y+h-r} a${r} ${r} 0 0 0 ${r} ${r} h${w-2*r} a${r} ${r} 0 0 0 ${r} ${-r} V${y} Z`;
+  /* right */         return `M${x} ${y} h${w-r} a${r} ${r} 0 0 1 ${r} ${r} v${h-2*r} a${r} ${r} 0 0 1 ${-r} ${r} H${x} Z`;
+}
+function tipOn(tip, host, html, ev){
+  tip.innerHTML = html; tip.style.opacity = 1;
+  const hb = host.getBoundingClientRect(), tb = tip.getBoundingClientRect();
+  let x = ev.clientX - hb.left + 14, y = ev.clientY - hb.top - tb.height - 10;
+  if (x + tb.width > hb.width - 4) x = ev.clientX - hb.left - tb.width - 14;
+  if (y < 4) y = ev.clientY - hb.top + 18;
+  tip.style.left = x+'px'; tip.style.top = y+'px';
+}
+const tipOff = tip => tip.style.opacity = 0;
+function tbl(container, head, rows){
+  container.innerHTML = '<table><thead><tr>' + head.map(h=>`<th>${h}</th>`).join('') +
+    '</tr></thead><tbody>' + rows.map(r=>'<tr>'+r.map(c=>`<td>${c}</td>`).join('')+'</tr>').join('') + '</tbody></table>';
+}
+
+/* ---------- 1. grouped columns: revenue vs expenses ---------- */
+function chartRevExp(){
+  const host = document.getElementById('c1'), tip = document.getElementById('c1tip');
+  const [a,b] = RANGE[S.period], labels = D.short.slice(a,b), full = D.months.slice(a,b);
+  const rev = slice(D.revenue), exp = slice(D.expenses);
+  const W = host.clientWidth || 900, H = 300, m = {t:12,r:14,b:30,l:60};
+  const iw = W-m.l-m.r, ih = H-m.t-m.b;
+  const tk = ticks(0, Math.max(...rev, ...exp)), max = tk[tk.length-1];
+  const y = v => m.t + ih - (v/max)*ih;
+  const band = iw/labels.length, bw = Math.min(24, (band-14)/2);
+  const svg = el('svg',{viewBox:`0 0 ${W} ${H}`, height:H, role:'img','aria-label':'Pajamos ir išlaidos per mėnesį'});
+
+  tk.forEach(v=>{
+    svg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:cssv('--grid'),'stroke-width':1}));
+    const t = el('text',{x:m.l-10,y:y(v)+4,'text-anchor':'end',fill:cssv('--muted'),'font-size':11.5,style:'font-variant-numeric:tabular-nums'});
+    t.textContent = v.toLocaleString('lt-LT'); svg.appendChild(t);
+  });
+  const skip1 = band < 34 ? 2 : 1;
+  labels.forEach((L,i)=>{
+    const cx = m.l + band*i + band/2;
+    if (i % skip1 === 0){
+      const t = el('text',{x:cx,y:H-10,'text-anchor':'middle',fill:cssv('--muted'),'font-size':11.5});
+      t.textContent = L; svg.appendChild(t);
+    }
+    /* 2px surface gap between the touching pair */
+    const x1 = cx - bw - 1, x2 = cx + 1;
+    svg.appendChild(el('path',{d:barPath(x1,y(rev[i]),bw,ih-(y(rev[i])-m.t),4,'up'),fill:cssv('--s1')}));
+    svg.appendChild(el('path',{d:barPath(x2,y(exp[i]),bw,ih-(y(exp[i])-m.t),4,'up'),fill:cssv('--s2')}));
+    const hit = el('rect',{x:m.l+band*i,y:m.t,width:band,height:ih,fill:'transparent'});
+    hit.addEventListener('mousemove',e=>tipOn(tip,host.parentElement,
+      `<div class="t-h">${full[i]}</div>
+       <div class="t-r"><span>Pajamos</span><b>${eur(rev[i])}</b></div>
+       <div class="t-r"><span>Išlaidos</span><b>${eur(exp[i])}</b></div><div class="t-sep"></div>
+       <div class="t-r"><span>Uždarbis</span><b style="color:${rev[i]-exp[i]<0?cssv('--neg'):cssv('--good')}">${eur(rev[i]-exp[i])}</b></div>`, e));
+    hit.addEventListener('mouseleave',()=>tipOff(tip));
+    svg.appendChild(hit);
+  });
+  svg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:m.t+ih,y2:m.t+ih,stroke:cssv('--axis'),'stroke-width':1}));
+  host.replaceChildren(svg);
+  tbl(document.getElementById('c1t'), ['Mėnuo','Pajamos','Išlaidos','Uždarbis'],
+    full.map((M,i)=>[M, eur(rev[i]), eur(exp[i]), eur(rev[i]-exp[i])]));
+}
+
+/* ---------- 2. diverging columns: monthly profit ---------- */
+function chartProfit(){
+  const host = document.getElementById('c2'), tip = document.getElementById('c2tip');
+  const [a,b] = RANGE[S.period], labels = D.short.slice(a,b), full = D.months.slice(a,b);
+  const p = slice(D.profit);
+  const W = host.clientWidth || 440, H = 280, m = {t:26,r:14,b:26,l:58};
+  const iw = W-m.l-m.r, ih = H-m.t-m.b;
+  const lo = Math.min(0, ...p), hi = Math.max(0, ...p);
+  const tk = ticks(lo, hi, 4), tmin = Math.min(...tk, lo), tmax = Math.max(...tk, hi);
+  const y = v => m.t + ih - ((v-tmin)/(tmax-tmin))*ih, zero = y(0);
+  const band = iw/labels.length, bw = Math.min(24, band-10);
+  const svg = el('svg',{viewBox:`0 0 ${W} ${H}`, height:H, role:'img','aria-label':'Mėnesio uždarbis'});
+  tk.forEach(v=>{
+    svg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:cssv('--grid'),'stroke-width':1}));
+    const t = el('text',{x:m.l-10,y:y(v)+4,'text-anchor':'end',fill:cssv('--muted'),'font-size':11.5,style:'font-variant-numeric:tabular-nums'});
+    t.textContent = v.toLocaleString('lt-LT'); svg.appendChild(t);
+  });
+  const iMax = p.indexOf(Math.max(...p)), iMin = p.indexOf(Math.min(...p));
+  labels.forEach((L,i)=>{
+    const cx = m.l + band*i + band/2, v = p[i], up = v >= 0;
+    const h = Math.abs(y(v)-zero);
+    svg.appendChild(el('path',{d:barPath(cx-bw/2, up?y(v):zero, bw, h, 4, up?'up':'down'),
+      fill: up?cssv('--s1'):cssv('--neg')}));
+    if (band >= 30 || i % 2 === 0){
+      const t = el('text',{x:cx,y: up? zero+15 : zero-7,'text-anchor':'middle',fill:cssv('--muted'),'font-size':11.5});
+      t.textContent = L; svg.appendChild(t);
+    }
+    if (i===iMax || i===iMin){
+      const lab = el('text',{x:cx, y: up? y(v)-8 : y(v)+16,'text-anchor':'middle',fill:cssv('--ink'),'font-size':12,'font-weight':620});
+      lab.textContent = Math.round(v).toLocaleString('lt-LT'); svg.appendChild(lab);
+    }
+    const hit = el('rect',{x:m.l+band*i,y:m.t,width:band,height:ih,fill:'transparent'});
+    hit.addEventListener('mousemove',e=>tipOn(tip,host.parentElement,
+      `<div class="t-h">${full[i]}</div><div class="t-r"><span>Uždarbis</span><b style="color:${v<0?cssv('--neg'):cssv('--good')}">${eur(v)}</b></div>`, e));
+    hit.addEventListener('mouseleave',()=>tipOff(tip));
+    svg.appendChild(hit);
+  });
+  svg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:zero,y2:zero,stroke:cssv('--axis'),'stroke-width':1}));
+  host.replaceChildren(svg);
+  tbl(document.getElementById('c2t'), ['Mėnuo','Uždarbis'], full.map((M,i)=>[M, eur(p[i])]));
+}
+
+/* ---------- 3. line: cash on hand ---------- */
+function chartCash(){
+  const host = document.getElementById('c3'), tip = document.getElementById('c3tip');
+  const [a,b] = RANGE[S.period], labels = D.short.slice(a,b), full = D.months.slice(a,b);
+  const c = slice(D.cash);
+  const W = host.clientWidth || 440, H = 280, m = {t:24,r:44,b:26,l:58};
+  const iw = W-m.l-m.r, ih = H-m.t-m.b;
+  const tk = ticks(0, Math.max(...c)), max = tk[tk.length-1];
+  const y = v => m.t + ih - (v/max)*ih;
+  const x = i => m.l + (labels.length===1 ? iw/2 : (iw/(labels.length-1))*i);
+  const svg = el('svg',{viewBox:`0 0 ${W} ${H}`, height:H, role:'img','aria-label':'Grynieji sąskaitoje'});
+  tk.forEach(v=>{
+    svg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:cssv('--grid'),'stroke-width':1}));
+    const t = el('text',{x:m.l-10,y:y(v)+4,'text-anchor':'end',fill:cssv('--muted'),'font-size':11.5,style:'font-variant-numeric:tabular-nums'});
+    t.textContent = v.toLocaleString('lt-LT'); svg.appendChild(t);
+  });
+  const pts = c.map((v,i)=>[x(i),y(v)]);
+  svg.appendChild(el('path',{d:`M${pts[0][0]} ${m.t+ih} `+pts.map(p=>`L${p[0]} ${p[1]}`).join(' ')+` L${pts[pts.length-1][0]} ${m.t+ih} Z`,
+    fill:cssv('--s1'), opacity:0.10}));
+  svg.appendChild(el('path',{d:'M'+pts.map(p=>`${p[0]} ${p[1]}`).join(' L'), fill:'none', stroke:cssv('--s1'),
+    'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
+  const step3 = iw/(labels.length-1||1);
+  labels.forEach((L,i)=>{
+    if (step3 < 34 && i % 2 !== 0) return;
+    const t = el('text',{x:x(i),y:H-8,'text-anchor':'middle',fill:cssv('--muted'),'font-size':11.5});
+    t.textContent = L; svg.appendChild(t);
+  });
+  const iMax = c.indexOf(Math.max(...c));
+  pts.forEach((p,i)=>{
+    if (i===iMax || i===pts.length-1){
+      svg.appendChild(el('circle',{cx:p[0],cy:p[1],r:4.5,fill:cssv('--s1'),stroke:cssv('--surface'),'stroke-width':2}));
+    }
+  });
+  const lab = el('text',{x:pts[iMax][0], y:pts[iMax][1]-12,'text-anchor': iMax>labels.length-2?'end':'middle',
+    fill:cssv('--ink'),'font-size':12,'font-weight':620});
+  lab.textContent = Math.round(c[iMax]).toLocaleString('lt-LT'); svg.appendChild(lab);
+  const cross = el('line',{y1:m.t,y2:m.t+ih,stroke:cssv('--axis'),'stroke-width':1,opacity:0});
+  svg.appendChild(cross);
+  const over = el('rect',{x:m.l-8,y:m.t,width:iw+16,height:ih,fill:'transparent'});
+  over.addEventListener('mousemove',e=>{
+    const r = svg.getBoundingClientRect(), px = (e.clientX-r.left)*(W/r.width);
+    let i = Math.round((px-m.l)/((iw)/(labels.length-1||1)));
+    i = Math.max(0, Math.min(labels.length-1, i));
+    cross.setAttribute('x1',x(i)); cross.setAttribute('x2',x(i)); cross.setAttribute('opacity',1);
+    tipOn(tip,host.parentElement,`<div class="t-h">${GEN[a+i]} 1 d.</div><div class="t-r"><span>Likutis</span><b>${eur(c[i])}</b></div>`, e);
+  });
+  over.addEventListener('mouseleave',()=>{cross.setAttribute('opacity',0); tipOff(tip);});
+  svg.appendChild(over);
+  svg.appendChild(el('line',{x1:m.l,x2:W-m.r,y1:m.t+ih,y2:m.t+ih,stroke:cssv('--axis'),'stroke-width':1}));
+  host.replaceChildren(svg);
+  tbl(document.getElementById('c3t'), ['Data','Grynieji'], full.map((M,i)=>[GEN[a+i]+' 1 d.', eur(c[i])]));
+}
+
+/* ---------- horizontal bars (shared by clients & expenses) ---------- */
+function hbar(hostId, tipId, tableId, rows, total, tipExtra){
+  const host = document.getElementById(hostId), tip = document.getElementById(tipId);
+  const W = host.clientWidth || 520, labelW = Math.min(190, Math.max(140, W*0.34));
+  const rowH = 26, m = {t:6, r:78, b:4, l:labelW};
+  const H = m.t + rows.length*rowH + m.b;
+  const max = Math.max(...rows.map(r=>r.total)) || 1;
+  const iw = W-m.l-m.r;
+  const svg = el('svg',{viewBox:`0 0 ${W} ${H}`, height:H, role:'img'});
+  rows.forEach((r,i)=>{
+    const yTop = m.t + i*rowH, bh = Math.min(16, rowH-10), by = yTop + (rowH-bh)/2;
+    const w = Math.max(2, (r.total/max)*iw);
+    const name = el('text',{x:m.l-12,y:by+bh/2+4,'text-anchor':'end',fill:cssv('--ink2'),'font-size':12.5});
+    const maxCh = Math.max(10, Math.floor((m.l-14)/6.4));
+    name.textContent = r.name.length>maxCh ? r.name.slice(0,maxCh-1)+'…' : r.name;
+    svg.appendChild(name);
+    svg.appendChild(el('path',{d:barPath(m.l, by, w, bh, 4, 'right'), fill: r.muted? cssv('--axis') : cssv('--s1')}));
+    const val = el('text',{x:m.l+w+10, y:by+bh/2+4, fill:cssv('--ink'),'font-size':12,'font-weight':600,style:'font-variant-numeric:tabular-nums'});
+    val.textContent = Math.round(r.total).toLocaleString('lt-LT');
+    svg.appendChild(val);
+    const hit = el('rect',{x:0,y:yTop,width:W,height:rowH,fill:'transparent'});
+    hit.addEventListener('mousemove',e=>tipOn(tip,host.parentElement,
+      `<div class="t-h">${r.name}</div><div class="t-r"><span>Suma</span><b>${eur(r.total)}</b></div>
+       <div class="t-r"><span>Dalis</span><b>${pct(r.total/total)}</b></div>` + (tipExtra? tipExtra(r):''), e));
+    hit.addEventListener('mouseleave',()=>tipOff(tip));
+    svg.appendChild(hit);
+  });
+  host.replaceChildren(svg);
+  return document.getElementById(tableId);
+}
+
+function chartClients(){
+  const [a,b] = RANGE[S.period];
+  const list = D.clients.map(c=>({name:c.name, total:sum(c.m.slice(a,b)), months:c.m.slice(a,b).filter(x=>x).length, contract:c.contract}))
+    .filter(c=>c.total>0).sort((x,y)=>y.total-x.total);
+  const total = sum(list.map(c=>c.total));
+  const top = list.slice(0,12);
+  const rest = list.slice(12);
+  const rows = top.slice();
+  if (rest.length) rows.push({name:`Kiti (${rest.length})`, total:sum(rest.map(r=>r.total)), muted:true, months:null});
+  const t = hbar('c4','c4tip','c4t', rows, total, r => r.months!=null ? `<div class="t-r"><span>Aktyvūs mėn.</span><b>${r.months}</b></div>` : '');
+  document.getElementById('c4sub').textContent =
+    `TOP 5 sudaro ${pct(sum(top.slice(0,5).map(c=>c.total))/total)} visų pajamų, TOP 10 — ${pct(sum(top.slice(0,10).map(c=>c.total))/total)}`;
+  let cum = 0;
+  tbl(t, ['Klientas','Pajamos','Dalis','Sukauptai'], list.map(c=>{
+    cum += c.total; return [c.name, eur(c.total), pct(c.total/total), pct(cum/total)];
+  }));
+}
+
+function chartExpenses(){
+  const [a,b] = RANGE[S.period];
+  const list = D.expenseGroups.map(g=>({name:g.name, total:sum(g.m.slice(a,b)), items:g.items}))
+    .filter(g=>g.total>0).sort((x,y)=>y.total-x.total);
+  const total = sum(list.map(g=>g.total));
+  const t = hbar('c5','c5tip','c5t', list, total, r =>
+    r.items && r.items.length>1 ? `<div class="t-sep"></div><div class="t-r" style="font-size:11.5px"><span>${r.items.length} eilutės, didžiausia:</span></div><div class="t-r" style="font-size:11.5px"><span>${r.items[0].name.slice(0,34)}</span></div>` : '');
+  document.getElementById('c5sub').textContent =
+    `Atlyginimai ir mokesčiai kartu sudaro ${pct((list.filter(g=>/Atlyginimai|Mokesčiai/.test(g.name)).reduce((s,g)=>s+g.total,0))/total)} išlaidų`;
+  tbl(t, ['Kategorija','Suma','Dalis'], list.map(g=>[g.name, eur(g.total), pct(g.total/total)]));
+}
+
+/* ---------- client table (sortable + search) ---------- */
+let sortKey='total', sortDir=-1;
+function clientTable(){
+  const [a,b] = RANGE[S.period];
+  const q = (document.getElementById('cliSearch').value||'').toLowerCase();
+  let list = D.clients.map(c=>({name:c.name, total:sum(c.m.slice(a,b)), months:c.m.slice(a,b).filter(x=>x).length,
+      avg: c.m.slice(a,b).filter(x=>x).length ? sum(c.m.slice(a,b))/c.m.slice(a,b).filter(x=>x).length : 0,
+      contract:c.contract||'—'}))
+    .filter(c=>c.total>0 && c.name.toLowerCase().includes(q));
+  list.sort((x,y)=> (typeof x[sortKey]==='string' ? x[sortKey].localeCompare(y[sortKey]) : x[sortKey]-y[sortKey]) * sortDir);
+  document.getElementById('cliSub').textContent =
+    `${list.length} klientai su pajamomis (${PLAB[S.period]}): metinės sumos, aktyvūs mėnesiai ir sutarties galiojimas. Rūšiuoti — spustelėkite stulpelio antraštę.`;
+  const heads = [['name','Klientas'],['total','Pajamos'],['months','Aktyvūs mėn.'],['avg','Vid. / mėn.'],['contract','Sutartis iki']];
+  const arrow = k => sortKey===k ? (sortDir>0?' ▲':' ▼') : '';
+  document.getElementById('cliTable').innerHTML =
+    '<table><thead><tr>' + heads.map(([k,l])=>`<th class="sortable" data-k="${k}">${l}${arrow(k)}</th>`).join('') + '</tr></thead><tbody>' +
+    list.map(c=>`<tr><td>${c.name}</td><td>${eur(c.total)}</td><td>${c.months}</td><td>${eur(c.avg)}</td><td>${c.contract}</td></tr>`).join('') +
+    '</tbody></table>';
+  document.querySelectorAll('#cliTable th').forEach(th=>th.addEventListener('click',()=>{
+    const k = th.dataset.k;
+    if (sortKey===k) sortDir*=-1; else { sortKey=k; sortDir = k==='name'?1:-1; }
+    clientTable();
+  }));
+}
+
+/* ---------- KPIs ---------- */
+function kpis(){
+  const [a,b] = RANGE[S.period];
+  const rev = sum(slice(D.revenue)), exp = sum(slice(D.expenses)), prof = rev-exp, n = b-a;
+  const yRev = sum(D.revenue), yProf = sum(D.profit);
+  document.getElementById('heroVal').textContent = eur(prof);
+  document.getElementById('heroVal').style.color = prof<0 ? cssv('--neg') : cssv('--ink');
+  const posM = slice(D.profit).filter(v=>v>0).length;
+  document.getElementById('heroMeta').innerHTML =
+    `Pelno marža <b>${pct(prof/rev)}</b> · pelningi <b>${posM} iš ${n}</b> mėn.` +
+    (S.period==='all' ? '' : ` · metų rezultatas ${eur(yProf)}`);
+  document.getElementById('kRev').textContent = eurK(rev);
+  document.getElementById('kRevD').textContent = S.period==='all' ? `${D.clients.length} klientai per metus` : `${pct(rev/yRev)} metinių pajamų`;
+  document.getElementById('kExp').textContent = eurK(exp);
+  document.getElementById('kExpD').textContent = `${pct(exp/rev)} nuo pajamų`;
+  document.getElementById('kMar').textContent = pct(prof/rev);
+  const best = slice(D.profit).indexOf(Math.max(...slice(D.profit)));
+  document.getElementById('kMarD').textContent = `geriausias mėnuo — ${NOM[a+best]}`;
+  const act = slice(D.activeClients);
+  document.getElementById('kCli').textContent = Math.round(sum(act)/act.length);
+  document.getElementById('kCliD').textContent = `vidutiniškai per mėn. (${Math.min(...act)}–${Math.max(...act)})`;
+  document.getElementById('kAvg').textContent = eur(rev/n);
+  document.getElementById('kAvgD').textContent = `išlaidos ${eur(exp/n)} / mėn.`;
+  const cash = slice(D.cash), c0 = cash[0], c1 = cash[cash.length-1];
+  document.getElementById('kCash').textContent = eur(c1);
+  const d = c1-c0;
+  document.getElementById('kCashD').innerHTML =
+    `<span class="${d>=0?'up':'down'}">${d>=0?'▲':'▼'} ${eur(Math.abs(d))}</span> nuo ${GEN[a]} 1 d.`;
+  document.getElementById('scopeNote').textContent =
+    S.period==='all' ? 'Rodomi 2019 m. sausio–gruodžio duomenys' : `Rodomas ${PLAB[S.period]} (${GEN[a]}–${GEN[b-1]} mėn.)`;
+}
+
+/* ---------- insights ---------- */
+function insights(){
+  const rev = D.revenue, exp = D.expenses, prof = D.profit;
+  const h1 = sum(rev.slice(0,6)), h2 = sum(rev.slice(6));
+  const dec = prof[11], feb = prof[1];
+  const top5 = sum(D.clients.slice(0,5).map(c=>c.total));
+  const recur = D.clients.filter(c=>c.months>=10);
+  const oneoff = D.clients.filter(c=>c.months===1);
+  const sal = D.expenseGroups.find(g=>g.name==='Atlyginimai').total;
+  const tax = D.expenseGroups.find(g=>/Mokesčiai/.test(g.name)).total;
+  const expiring = D.clients.filter(c=>c.contract && String(c.contract).includes('2019'));
+  const li = [
+    `<b>Metų rezultatas — ${eur(sum(prof))} pelno iš ${eur(sum(rev))} pajamų</b> (marža ${pct(sum(prof)/sum(rev))}). Marža plona: kiekvienas didesnis išlaidų šuolis iškart nuveda mėnesį į minusą.`,
+    `<b>Antras pusmetis stipresnis už pirmą:</b> ${eur(h2)} prieš ${eur(h1)} (+${pct(h2/h1-1)}). Stipriausi mėnesiai — rugsėjis ir spalis (${eur(rev[8])} ir ${eur(rev[9])}).`,
+    `<b>Du nuostolingi mėnesiai:</b> gruodis ${eur(dec)} ir vasaris ${eur(feb)}. Gruodžio išlaidos (${eur(exp[11])}) beveik dvigubai viršija įprastą mėnesį — didžiąją dalį sudaro metų pabaigos atlyginimų išmokos (Rita ${eur(8100)}, Artūras ${eur(8700)}) ir asociacijų / narystės mokėjimai (${eur(6029)}).`,
+    `<b>Pajamų koncentracija:</b> TOP 5 klientai duoda ${pct(top5/sum(rev))} pajamų, o vien Phillip Morris — ${pct(D.clients[0].total/sum(rev))}. Praradus vieną didįjį klientą, metų pelnas dingtų visas.`,
+    `<b>Pasikartojančios pajamos:</b> ${recur.length} klientai moka 10–12 mėn. per metus ir sudaro ${pct(sum(recur.map(c=>c.total))/sum(rev))} pajamų. Kiti ${oneoff.length} klientai — vienkartiniai projektai (${eur(sum(oneoff.map(c=>c.total)))}).`,
+    `<b>Išlaidų struktūra:</b> atlyginimai ${eur(sal)} (${pct(sal/sum(exp))}) ir mokesčiai ${eur(tax)} (${pct(tax/sum(exp))}) kartu sudaro ${pct((sal+tax)/sum(exp))} visų išlaidų. Tai grynai personalo verslas — trečia pagal dydį kategorija, ofisas (${eur(D.expenseGroups.find(g=>/Ofisas/.test(g.name)).total)}), yra daugiau nei tris kartus mažesnė už mokesčius, o visos likusios kartu tesudaro ${pct(1-(sal+tax+D.expenseGroups.find(g=>/Ofisas/.test(g.name)).total)/sum(exp))} išlaidų.`,
+    `<b>Grynieji auga, bet netolygiai:</b> nuo ${eur(D.cash[0])} sausio 1 d. iki ${eur(D.cash[11])} gruodžio 1 d. Piko taškas yra prieš pat gruodžio išmokas, todėl realus metų pabaigos likutis yra gerokai mažesnis.`,
+    `<b>Sutarčių rizika:</b> ${expiring.length} sutartys baigiasi 2019.12.31 — ${expiring.map(c=>`${c.name} (${eur(c.total)})`).join(', ')}. Kartu tai ${pct(sum(expiring.map(c=>c.total))/sum(rev))} metinių pajamų, kurias reikia atnaujinti.`
+  ];
+  document.getElementById('insights').innerHTML = li.map(t=>`<li>${t}</li>`).join('');
+}
+
+/* ---------- render + wiring ---------- */
+function render(){
+  kpis(); chartRevExp(); chartProfit(); chartCash(); chartClients(); chartExpenses(); clientTable();
+}
+document.getElementById('period').addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  S.period = b.dataset.p;
+  document.querySelectorAll('#period button').forEach(x=>x.setAttribute('aria-pressed', String(x===b)));
+  render();
+});
+document.querySelectorAll('.tbtn[data-table]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const id = btn.dataset.table;
+    const chart = document.getElementById(id), table = document.getElementById(id+'t');
+    const showTable = chart.classList.toggle('hidden');
+    table.classList.toggle('hidden', !showTable);
+    btn.textContent = showTable ? 'Diagrama' : 'Lentelė';
+  });
+});
+document.getElementById('cliSearch').addEventListener('input', clientTable);
+
+/* ---------- temos ---------- */
+const THEMES = [
+  {id:'nordic',    name:'Nordic',    dot:'#2a6db0'},
+  {id:'platinum',  name:'Platinum',  dot:'#2c5f9c'},
+  {id:'editorial', name:'Editorial', dot:'#c05f3c'},
+  {id:'sage',      name:'Sage',      dot:'#0b6244'},
+  {id:'obsidian',  name:'Obsidian',  dot:'#c9a227'},
+  {id:'sapphire',  name:'Sapphire',  dot:'#b07c33'}
+];
+const themeBox = document.getElementById('themes');
+THEMES.forEach(t=>{
+  const b = document.createElement('button');
+  b.className='swatch'; b.dataset.t=t.id; b.setAttribute('aria-pressed','false');
+  b.innerHTML = `<i style="background:${t.dot}"></i>${t.name}`;
+  b.addEventListener('click',()=>setTheme(t.id));
+  themeBox.appendChild(b);
+});
+function setTheme(id){
+  document.documentElement.dataset.theme = id;
+  document.querySelectorAll('.swatch').forEach(s=>s.setAttribute('aria-pressed', String(s.dataset.t===id)));
+  render();
+}
+
+/* ---------- pristatymo parametrai (?klientas=…&tema=…) ---------- */
+const params = new URLSearchParams(location.search);
+const startTheme = THEMES.some(t=>t.id===params.get('tema')) ? params.get('tema')
+  : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'obsidian' : 'nordic');
+const nameInput = document.getElementById('clientName');
+if (params.get('klientas')) nameInput.value = params.get('klientas');
+document.getElementById('stamp').textContent =
+  'Ataskaitinis laikotarpis: 2019 01 01 – 2019 12 31';
+document.getElementById('printBtn').addEventListener('click', ()=>window.print());
+let rt; window.addEventListener('resize', ()=>{ clearTimeout(rt); rt = setTimeout(render, 120); });
+window.addEventListener('beforeprint', render);
+
+/* Naujų duomenų pritaikymas neperkraunant puslapio (naudoja „Atnaujinti"). */
+window.__APPLY__ = function (nd) {
+  D = nd; window.__DATA__ = nd;
+  insights(); render();
+};
+
+insights(); setTheme(startTheme);
+
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Duomenų sluoksnis
+
+   1. data.json — paskutinis sinchronizuotas momentinis vaizdas. Įkeliamas
+      iškart, kad puslapis nupieštų greitai, be laukimo.
+   2. config.json -> liveEndpoint — Apps Script adresas. Jei nurodytas,
+      atidarius puslapį (ir paspaudus „Atnaujinti", ir grįžus į kortelę)
+      duomenys pasiimami tiesiai iš skaičiuoklės.
+
+   Jei gyvas šaltinis nepasiekiamas, lieka data.json duomenys ir mygtukas
+   pasako, kad rodomas paskutinis žinomas vaizdas. Puslapis niekada nelieka
+   tuščias vien dėl to, kad neatsakė skaičiuoklė.
+   ───────────────────────────────────────────────────────────────────────── */
+(function () {
+  var booted = false, live = null, busy = false, lastLive = 0;
+  var BASE_STAMP = 'Ataskaitinis laikotarpis: 2019 01 01 – 2019 12 31';
+
+  function setStamp(d, suffix) {
+    var s = document.getElementById('stamp');
+    if (s) s.textContent = BASE_STAMP + (d && d.updatedAt ? ' · duomenys ' + d.updatedAt : '') + (suffix || '');
+  }
+  function btn() { return document.getElementById('refreshBtn'); }
+  function label(text, state) {
+    var b = btn(); if (!b) return;
+    document.getElementById('refreshLbl').textContent = text;
+    if (state) b.dataset.state = state; else b.removeAttribute('data-state');
+  }
+
+  function apply(d) {
+    window.__DATA__ = d;
+    if (!booted) { boot(); booted = true; }
+    else if (window.__APPLY__) { window.__APPLY__(d); }
+    setStamp(d);
+  }
+
+  function fail(e) {
+    document.querySelector('.wrap').style.display = 'none';
+    var box = document.getElementById('loadErr');
+    box.style.display = 'block';
+    document.getElementById('loadErrMsg').textContent =
+      'Duomenų failas data.json nepasiekiamas arba sugadintas (' + e.message + '). ' +
+      'Dashboard\u0027o išdėstymas nepakeistas — reikia sėkmingos sinchronizacijos.';
+  }
+
+  /* šviežių duomenų paėmimas tiesiai iš skaičiuoklės */
+  function refresh(manual) {
+    if (!live || busy) return Promise.resolve();
+    busy = true; lastLive = Date.now();
+    label('Atnaujinama…', 'busy');
+    return fetch(live + (live.indexOf('?') < 0 ? '?' : '&') + 'ts=' + Date.now(),
+                 { cache: 'no-store', redirect: 'follow' })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (res) {
+        if (res.status === 'error') throw new Error(res.message || 'patikra nepraėjo');
+        var d = res.data || res;
+        if (!d || !d.revenue) throw new Error('netinkamas atsakymas');
+        var changed = !window.__DATA__ || d.updatedAt !== window.__DATA__.updatedAt;
+        apply(d);
+        label(changed ? 'Atnaujinta' : 'Duomenys naujausi', 'ok');
+        setTimeout(function () { label('Atnaujinti'); }, 4000);
+      })
+      .catch(function (e) {
+        label('Nepavyko atnaujinti', 'err');
+        setStamp(window.__DATA__, ' · gyvas šaltinis nepasiekiamas');
+        if (manual) console.warn('[refresh]', e);
+        setTimeout(function () { label('Atnaujinti'); }, 6000);
+      })
+      .then(function () { busy = false; });
+  }
+
+  /* 1 · momentinis vaizdas */
+  fetch('data.json?v=' + Date.now(), { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw new Error('data.json ' + r.status); return r.json(); })
+    .then(apply)
+    .catch(fail)
+    /* 2 · gyvas šaltinis */
+    .then(function () { return fetch('config.json?v=' + Date.now(), { cache: 'no-store' }); })
+    .then(function (r) { return r && r.ok ? r.json() : null; })
+    .then(function (cfg) {
+      if (!cfg || !cfg.liveEndpoint) return;
+      live = cfg.liveEndpoint;
+      var b = btn();
+      if (b) { b.hidden = false; b.addEventListener('click', function () { refresh(true); }); }
+      if (cfg.refreshOnOpen !== false) refresh(false);           // atidarius puslapį
+      if (cfg.refreshOnFocus !== false) {                        // grįžus į kortelę
+        document.addEventListener('visibilitychange', function () {
+          if (!document.hidden && Date.now() - lastLive > 60000) refresh(false);
+        });
+      }
+    })
+    .catch(function () { /* config.json nebūtinas */ });
+})();
+</script>
+</body>
+</html>

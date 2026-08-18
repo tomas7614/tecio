@@ -1,0 +1,6 @@
+/data.json
+  Cache-Control: no-store, max-age=0
+/config.json
+  Cache-Control: no-store, max-age=0
+/index.html
+  Cache-Control: no-cache
