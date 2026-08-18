@@ -1,1 +1,830 @@
-{"sheet": "2019", "months": ["Sausis", "Vasaris", "Kovas", "Balandis", "Gegužė", "Birželis", "Liepa", "Rugpjūtis", "Rugsėjis", "Spalis", "Lapkritis", "Gruodis"], "short": ["Sau", "Vas", "Kov", "Bal", "Geg", "Bir", "Lie", "Rgp", "Rgs", "Spa", "Lap", "Grd"], "revenue": [19915, 17161, 22915, 23838, 24707, 30109, 26571, 23486, 35001, 35511, 23259, 25724], "expenses": [17471, 24040, 22273, 21334, 20413, 27250, 20450, 20373, 22145, 25132, 22607, 41711], "profit": [2444, -6879, 642, 2504, 4294, 2859, 6121, 3113, 12856, 10379, 652, -15987], "cash": [9078, 11547, 8181, 12550, 7873, 8033, 10059, 19911, 15955, 11856, 15170, 42483], "activeClients": [16, 16, 17, 15, 15, 17, 18, 16, 16, 21, 21, 16], "clients": [{"name": "Phillip Morris", "m": [3200, 3200, 3200, 3200, 3200, 4795, 6803, 3200, 4930, 6200, 3200, 3200], "contract": "2021.12.31", "total": 48328, "months": 12}, {"name": "Western Union", "m": [2400, 2224, 1534, 5130, 1767, 1597, 1825, 1214, 900, 1674, 600, 6004], "contract": "neterminuotai", "total": 26869, "months": 12}, {"name": "Lietuvos draudimas", "m": [0, 0, 517, 0, 2400, 5478, 900, 470, 7535, 790, 620, 3865], "contract": "2021.12.31", "total": 22575, "months": 9}, {"name": "Countline", "m": [1700, 1550, 1550, 1700, 1700, 1700, 1700, 1700, 1700, 1700, 1700, 1700], "contract": "2020.04.11", "total": 20100, "months": 12}, {"name": "Gyvybės draudimas", "m": [1200, 1674, 1697, 1510, 867, 1284, 1197, 1021, 1434, 1450, 2517, 1388], "contract": "2020.12.31", "total": 17239, "months": 12}, {"name": "Biseris", "m": [1500, 1500, 1500, 1500, 1426, 1500, 1500, 1500, 1500, 1500, 1500, 322], "contract": "2019.12.31", "total": 16748, "months": 12}, {"name": "Camelia", "m": [0, 0, 0, 0, 0, 0, 2000, 2460, 1870, 3600, 1810, 1820], "contract": "2020.06.30", "total": 13560, "months": 6}, {"name": "Legalaus verslo aljansas", "m": [0, 0, 300, 540, 1815, 2250, 1850, 1470, 1560, 1170, 1755, 0], "contract": null, "total": 12710, "months": 9}, {"name": "Alwark", "m": [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1040, 1000, 1000, 1000, 1000], "contract": "2020.05.31", "total": 12040, "months": 12}, {"name": "IKEA Industry Lietuva", "m": [0, 0, 0, 0, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500], "contract": null, "total": 12000, "months": 8}, {"name": "TIETO", "m": [900, 1180, 900, 900, 900, 900, 900, 900, 1350, 900, 900, 900], "contract": "2020.02.09", "total": 11530, "months": 12}, {"name": "Vilniaus dailės akademija", "m": [0, 0, 0, 0, 0, 0, 0, 5500, 0, 3292, 0, 0], "contract": null, "total": 8792, "months": 2}, {"name": "Inno Energy", "m": [0, 0, 4250, 0, 0, 0, 0, 0, 0, 4240, 0, 0], "contract": "2019.12.31", "total": 8490, "months": 2}, {"name": "Lexus (Dalton)", "m": [355, 401, 425, 2360, 500, 1570, 680, 500, 1200, 70, 210, 0], "contract": null, "total": 8271, "months": 11}, {"name": "TransUnion", "m": [2000, 2000, 2000, 2000, 0, 0, 0, 0, 0, 0, 0, 0], "contract": null, "total": 8000, "months": 4}, {"name": "NEO Finance", "m": [0, 0, 0, 1290, 4250, 610, 350, 120, 0, 680, 0, 0], "contract": null, "total": 7300, "months": 6}, {"name": "Pontem", "m": [0, 0, 0, 0, 0, 0, 0, 0, 4522, 405, 810, 905], "contract": null, "total": 6642, "months": 4}, {"name": "Citadelė", "m": [0, 400, 1302, 558, 800, 0, 480, 641, 0, 350, 0, 500], "contract": null, "total": 5031, "months": 8}, {"name": "Glimstedt", "m": [100, 150, 300, 250, 0, 400, 800, 250, 0, 1700, 0, 650], "contract": "10.31?", "total": 4600, "months": 9}, {"name": "Futurepreneurs", "m": [1000, 1000, 1000, 1000, 0, 0, 0, 0, 0, 0, 0, 0], "contract": null, "total": 4000, "months": 4}, {"name": "SADM - prašyti pagalbos yra normalu", "m": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3660, 0], "contract": null, "total": 3660, "months": 1}, {"name": "Menar", "m": [0, 0, 0, 0, 0, 2275, 0, 0, 1300, 0, 0, 0], "contract": null, "total": 3575, "months": 2}, {"name": "GPRC", "m": [0, 0, 0, 0, 0, 0, 2909, 0, 0, 0, 0, 0], "contract": null, "total": 2909, "months": 1}, {"name": "Valstybės kontrolė", "m": [0, 82, 940, 0, 1082, 0, 82, 0, 0, 600, 82, 0], "contract": null, "total": 2868, "months": 6}, {"name": "Kauno miesto poliklinika", "m": [600, 0, 0, 900, 0, 1000, 0, 0, 0, 0, 0, 0], "contract": null, "total": 2500, "months": 3}, {"name": "Eglės sanatorija", "m": [0, 0, 0, 0, 0, 0, 0, 0, 2100, 0, 0, 0], "contract": null, "total": 2100, "months": 1}, {"name": "Eta projektai", "m": [0, 0, 0, 0, 0, 0, 0, 0, 0, 2100, 0, 0], "contract": null, "total": 2100, "months": 1}, {"name": "Neries kreditai", "m": [1000, 500, 500, 0, 0, 0, 0, 0, 0, 0, 50, 0], "contract": null, "total": 2050, "months": 4}, {"name": "Klaipėdos Nafta", "m": [2010, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "contract": null, "total": 2010, "months": 1}, {"name": "Jura", "m": [0, 0, 0, 0, 1500, 0, 0, 0, 0, 0, 0, 0], "contract": null, "total": 1500, "months": 1}, {"name": "MITA", "m": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1490], "contract": null, "total": 1490, "months": 1}, {"name": "Toyota (Dalton)", "m": [0, 100, 0, 0, 0, 1150, 95, 0, 0, 0, 75, 0], "contract": null, "total": 1420, "months": 4}, {"name": "Registrų centras", "m": [0, 0, 0, 0, 0, 1100, 0, 0, 0, 0, 0, 0], "contract": null, "total": 1100, "months": 1}, {"name": "Marcinkevičius Žilvinas", "m": [600, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "contract": null, "total": 600, "months": 1}, {"name": "iTO", "m": [0, 0, 0, 0, 0, 0, 0, 0, 600, 0, 0, 0], "contract": null, "total": 600, "months": 1}, {"name": "Kibernetinio saugumo centras", "m": [0, 0, 0, 0, 0, 0, 0, 0, 0, 590, 0, 0], "contract": null, "total": 590, "months": 1}, {"name": "Mobile Heavy Machinery", "m": [350, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80], "contract": null, "total": 430, "months": 2}, {"name": "ICF Next (Briuselis)", "m": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 400], "contract": null, "total": 400, "months": 1}, {"name": "Vilniaus visuomenės sveikatos centras", "m": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 370, 0], "contract": null, "total": 370, "months": 1}, {"name": "Coop Pank (Agenda PR)", "m": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 350, 0], "contract": null, "total": 350, "months": 1}, {"name": "Untu", "m": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0], "contract": null, "total": 300, "months": 1}, {"name": "Workland", "m": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 250, 0], "contract": null, "total": 250, "months": 1}, {"name": "Capitalia", "m": [0, 200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "contract": null, "total": 200, "months": 1}, {"name": "RescEU", "m": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "contract": null, "total": 0, "months": 0}], "expenseGroups": [{"name": "Atlyginimai", "m": [7389, 12344, 12515, 11496, 11345, 12222, 11758, 10701, 11831, 11651, 11466, 24760], "items": [{"name": "Alga per IQ (su GPM): Artūras", "total": 33300}, {"name": "Alga per MB (su GPM): Rita", "total": 31025}, {"name": "Alga: Monika", "total": 13573}, {"name": "Alga: Rita", "total": 11892}, {"name": "Alga: Akvilė", "total": 11880}, {"name": "Alga: Artūras", "total": 11843}, {"name": "Alga: Paulina", "total": 9093}, {"name": "Alga: Miglė", "total": 6569}, {"name": "Alga: Raminta", "total": 6353}, {"name": "Alga: Ulijona", "total": 4463}, {"name": "Alga: Jurga", "total": 4236}, {"name": "Alga: Jolita", "total": 2282}, {"name": "Alga: Rusnė", "total": 2102}, {"name": "Alga: Julija", "total": 867}], "total": 149478}, {"name": "Mokesčiai (Sodra, GPM, pelno)", "m": [3654, 5224, 5686, 4718, 4574, 7265, 4877, 4285, 6240, 4748, 4813, 5703], "items": [{"name": "Mokesčiai (Sodra + GPM+pelno ir kt.)", "total": 61787}], "total": 61787}, {"name": "Ofisas ir priežiūra", "m": [1561, 1723, 1517, 1528, 1508, 1653, 1475, 1477, 1478, 1466, 1624, 1505], "items": [{"name": "Ofiso nuoma + valymas + hig. priemonės + kilimėliai", "total": 18515}], "total": 18515}, {"name": "Asociacijos, konkursai, mokymai", "m": [500, 1000, 100, 0, 456, 2939, 0, 200, 90, 40, 150, 6029], "items": [{"name": "RSVA Asociacija, PR Impact Awards, konkursas Rygoje, mokymai, bendros advokato paslaugos, PROI", "total": 10887}, {"name": "Laidavimas, išlaidoms konkursams ruošti", "total": 617}], "total": 11504}, {"name": "Ryšiai ir IT", "m": [844, 968, 704, 797, 732, 928, 717, 616, 533, 591, 2041, 827], "items": [{"name": "Telefonai (visi) + internetas", "total": 5391}, {"name": "IT priežiūra, toneriai spausdintuvui, kompiuteriai, svetainės programavimo darbai, domenai", "total": 4907}], "total": 10298}, {"name": "Lizingas ir draudimas", "m": [673, 874, 674, 674, 674, 674, 674, 674, 674, 674, 792, 1421], "items": [{"name": "Lizingas, draudimas", "total": 9152}], "total": 9152}, {"name": "Transportas", "m": [522, 639, 477, 945, 611, 570, 343, 347, 327, 577, 800, 324], "items": [{"name": "Taksi, parkavimo mėnesiniai, Ramintos geležinkeliai", "total": 3434}, {"name": "Benzinas", "total": 3048}], "total": 6482}, {"name": "Kitos išlaidos", "m": [682, 329, 240, 545, 313, 472, 312, 139, 384, 2284, 410, 263], "items": [{"name": "Kitos išlaidos (kanceliarinės, vizitinės, sausainiai, kava, kavos filtrai, mašinų priežiūra ir kt.)", "total": 6373}], "total": 6373}, {"name": "Renginiai ir Self PR", "m": [679, 200, 160, 0, 0, 180, 94, 984, 0, 2007, 311, 632], "items": [{"name": "Renginiai (klientams ir vidiniai, baldai)+Self PR filmukai", "total": 5247}], "total": 5247}, {"name": "Buhalteriai", "m": [200, 200, 200, 200, 200, 200, 200, 200, 300, 200, 200, 200], "items": [{"name": "Buhalteriai", "total": 2500}], "total": 2500}, {"name": "Komandiruotės", "m": [0, 521, 0, 431, 0, 94, 0, 0, 0, 894, 0, 0], "items": [{"name": "Komandiruotės", "total": 1940}], "total": 1940}, {"name": "Media ir prenumeratos", "m": [767, 18, 0, 0, 0, 53, 0, 750, 288, 0, 0, 47], "items": [{"name": "MEDIA: BNS, Verslo žinios, Lietuvos rytas, Interneto vizija (svetainė)", "total": 1923}], "total": 1923}], "expenseLines": [{"name": "Mokesčiai (Sodra + GPM+pelno ir kt.)", "m": [3654, 5224, 5686, 4718, 4574, 7265, 4877, 4285, 6240, 4748, 4813, 5703], "total": 61787}, {"name": "Alga per IQ (su GPM): Artūras", "m": [0, 2400, 2550, 2100, 2400, 2400, 2550, 2400, 2700, 2700, 2400, 8700], "total": 33300}, {"name": "Alga per MB (su GPM): Rita", "m": [0, 2200, 2200, 2400, 2400, 2250, 2250, 2175, 2475, 2325, 2250, 8100], "total": 31025}, {"name": "Ofiso nuoma + valymas + hig. priemonės + kilimėliai", "m": [1561, 1723, 1517, 1528, 1508, 1653, 1475, 1477, 1478, 1466, 1624, 1505], "total": 18515}, {"name": "Alga: Monika", "m": [1009, 1100, 1093, 1137, 706, 1121, 1316, 1086, 1198, 1207, 1200, 1400], "total": 13573}, {"name": "Alga: Rita", "m": [851, 1000, 1080, 905, 1000, 995, 1044, 1000, 1000, 1024, 993, 1000], "total": 11892}, {"name": "Alga: Akvilė", "m": [848, 878, 1000, 998, 1000, 1201, 781, 971, 971, 971, 971, 1290], "total": 11880}, {"name": "Alga: Artūras", "m": [982, 850, 1000, 1000, 1000, 990, 1545, 476, 1000, 1000, 1000, 1000], "total": 11843}, {"name": "RSVA Asociacija, PR Impact Awards, konkursas Rygoje, mokymai, bendros advokato paslaugos, PROI", "m": [500, 1000, 0, 0, 339, 2829, 0, 0, 0, 40, 150, 6029], "total": 10887}, {"name": "Lizingas, draudimas", "m": [673, 874, 674, 674, 674, 674, 674, 674, 674, 674, 792, 1421], "total": 9152}, {"name": "Alga: Paulina", "m": [686, 686, 654, 851, 473, 739, 800, 800, 800, 804, 800, 1000], "total": 9093}, {"name": "Alga: Miglė", "m": [0, 0, 0, 0, 0, 646, 978, 950, 950, 953, 942, 1150], "total": 6569}, {"name": "Kitos išlaidos (kanceliarinės, vizitinės, sausainiai, kava, kavos filtrai, mašinų priežiūra ir kt.)", "m": [682, 329, 240, 545, 313, 472, 312, 139, 384, 2284, 410, 263], "total": 6373}, {"name": "Alga: Raminta", "m": [975, 1000, 997, 1000, 1000, 1381, 0, 0, 0, 0, 0, 0], "total": 6353}, {"name": "Telefonai (visi) + internetas", "m": [661, 575, 434, 470, 539, 487, 462, 433, 350, 399, 371, 210], "total": 5391}, {"name": "Renginiai (klientams ir vidiniai, baldai)+Self PR filmukai", "m": [679, 200, 160, 0, 0, 180, 94, 984, 0, 2007, 311, 632], "total": 5247}, {"name": "IT priežiūra, toneriai spausdintuvui, kompiuteriai, svetainės programavimo darbai, domenai", "m": [183, 393, 270, 327, 193, 441, 255, 183, 183, 192, 1670, 617], "total": 4907}, {"name": "Alga: Ulijona", "m": [0, 177, 253, 253, 250, 250, 250, 600, 600, 600, 560, 670], "total": 4463}, {"name": "Alga: Jurga", "m": [924, 920, 924, 604, 864, 0, 0, 0, 0, 0, 0, 0], "total": 4236}, {"name": "Taksi, parkavimo mėnesiniai, Ramintos geležinkeliai", "m": [182, 505, 213, 568, 441, 244, 201, 90, 126, 222, 570, 72], "total": 3434}, {"name": "Benzinas", "m": [340, 134, 264, 377, 170, 326, 142, 257, 201, 355, 230, 252], "total": 3048}, {"name": "Buhalteriai", "m": [200, 200, 200, 200, 200, 200, 200, 200, 300, 200, 200, 200], "total": 2500}, {"name": "Alga: Jolita", "m": [883, 883, 516, 0, 0, 0, 0, 0, 0, 0, 0, 0], "total": 2282}, {"name": "Alga: Rusnė", "m": [231, 250, 248, 248, 252, 249, 244, 243, 137, 0, 0, 0], "total": 2102}, {"name": "Komandiruotės", "m": [0, 521, 0, 431, 0, 94, 0, 0, 0, 894, 0, 0], "total": 1940}, {"name": "MEDIA: BNS, Verslo žinios, Lietuvos rytas, Interneto vizija (svetainė)", "m": [767, 18, 0, 0, 0, 53, 0, 750, 288, 0, 0, 47], "total": 1923}, {"name": "Alga: Julija", "m": [0, 0, 0, 0, 0, 0, 0, 0, 0, 67, 350, 450], "total": 867}, {"name": "Laidavimas, išlaidoms konkursams ruošti", "m": [0, 0, 100, 0, 117, 110, 0, 200, 90, 0, 0, 0], "total": 617}], "updatedAt": "2026-08-17 16:24"}
+{
+  "clients": {
+    "1": {
+      "name": "1",
+      "months": [
+        0,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1040,
+        1000,
+        1000,
+        1000
+      ],
+      "total": 11040
+    },
+    "2": {
+      "name": "2",
+      "months": [
+        0,
+        1500,
+        1500,
+        1500,
+        1500,
+        1426,
+        1500,
+        1500,
+        1500,
+        1500,
+        1500,
+        1500
+      ],
+      "total": 16426
+    },
+    "3": {
+      "name": "3",
+      "months": [
+        0,
+        2000,
+        2000,
+        2000,
+        2000,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 8000
+    },
+    "4": {
+      "name": "4",
+      "months": [
+        0,
+        600,
+        0,
+        0,
+        900,
+        0,
+        1000,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 2500
+    },
+    "5": {
+      "name": "5",
+      "months": [
+        0,
+        1000,
+        1000,
+        1000,
+        1000,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 4000
+    },
+    "6": {
+      "name": "6",
+      "months": [
+        0,
+        1200,
+        1674,
+        1697,
+        1510,
+        867,
+        1284,
+        1197,
+        1021,
+        1434,
+        1450,
+        2517
+      ],
+      "total": 15851
+    },
+    "7": {
+      "name": "7",
+      "months": [
+        0,
+        100,
+        150,
+        300,
+        250,
+        0,
+        400,
+        800,
+        250,
+        0,
+        1700,
+        0
+      ],
+      "total": 3950
+    },
+    "8": {
+      "name": "8",
+      "months": [
+        0,
+        600,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 600
+    },
+    "9": {
+      "name": "9",
+      "months": [
+        0,
+        0,
+        0,
+        300,
+        540,
+        1815,
+        2250,
+        1850,
+        1470,
+        1560,
+        1170,
+        1755
+      ],
+      "total": 12710
+    },
+    "10": {
+      "name": "10",
+      "months": [
+        0,
+        355,
+        401,
+        425,
+        2360,
+        500,
+        1570,
+        680,
+        500,
+        1200,
+        70,
+        210
+      ],
+      "total": 8271
+    },
+    "11": {
+      "name": "11",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2275,
+        0,
+        0,
+        1300,
+        0,
+        0
+      ],
+      "total": 3575
+    },
+    "12": {
+      "name": "12",
+      "months": [
+        0,
+        3200,
+        3200,
+        3200,
+        3200,
+        3200,
+        4795,
+        6803,
+        3200,
+        4930,
+        6200,
+        3200
+      ],
+      "total": 45128
+    },
+    "13": {
+      "name": "13",
+      "months": [
+        0,
+        900,
+        1180,
+        900,
+        900,
+        900,
+        900,
+        900,
+        900,
+        1350,
+        900,
+        900
+      ],
+      "total": 10630
+    },
+    "14": {
+      "name": "14",
+      "months": [
+        0,
+        0,
+        82,
+        940,
+        0,
+        1082,
+        0,
+        82,
+        0,
+        0,
+        600,
+        82
+      ],
+      "total": 2868
+    },
+    "15": {
+      "name": "15",
+      "months": [
+        0,
+        2400,
+        2224,
+        1534,
+        5130,
+        1767,
+        1597,
+        1825,
+        1214,
+        900,
+        1674,
+        600
+      ],
+      "total": 20865
+    },
+    "16": {
+      "name": "16",
+      "months": [
+        0,
+        1700,
+        1550,
+        1550,
+        1700,
+        1700,
+        1700,
+        1700,
+        1700,
+        1700,
+        1700,
+        1700
+      ],
+      "total": 18400
+    },
+    "17": {
+      "name": "17",
+      "months": [
+        0,
+        0,
+        100,
+        0,
+        0,
+        0,
+        1150,
+        95,
+        0,
+        0,
+        0,
+        75
+      ],
+      "total": 1420
+    },
+    "18": {
+      "name": "18",
+      "months": [
+        0,
+        2010,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 2010
+    },
+    "19": {
+      "name": "19",
+      "months": [
+        0,
+        0,
+        400,
+        1302,
+        558,
+        800,
+        0,
+        480,
+        641,
+        0,
+        350,
+        0
+      ],
+      "total": 4531
+    },
+    "20": {
+      "name": "20",
+      "months": [
+        0,
+        1000,
+        500,
+        500,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ],
+      "total": 2050
+    },
+    "21": {
+      "name": "21",
+      "months": [
+        0,
+        0,
+        0,
+        517,
+        0,
+        2400,
+        5478,
+        900,
+        470,
+        7535,
+        790,
+        620
+      ],
+      "total": 18710
+    },
+    "22": {
+      "name": "22",
+      "months": [
+        0,
+        350,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 350
+    },
+    "23": {
+      "name": "23",
+      "months": [
+        0,
+        0,
+        200,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 200
+    },
+    "24": {
+      "name": "24",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1500,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 1500
+    },
+    "25": {
+      "name": "25",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        1290,
+        4250,
+        610,
+        350,
+        120,
+        0,
+        680,
+        0
+      ],
+      "total": 7300
+    },
+    "26": {
+      "name": "26",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1500,
+        1500,
+        1500,
+        1500,
+        1500,
+        1500,
+        1500
+      ],
+      "total": 10500
+    },
+    "27": {
+      "name": "27",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1100,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 1100
+    },
+    "28": {
+      "name": "28",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5500,
+        0,
+        3292,
+        0
+      ],
+      "total": 8792
+    },
+    "29": {
+      "name": "29",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3660
+      ],
+      "total": 3660
+    },
+    "30": {
+      "name": "30",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 0
+    },
+    "31": {
+      "name": "31",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2000,
+        2460,
+        1870,
+        3600,
+        1810
+      ],
+      "total": 11740
+    },
+    "32": {
+      "name": "32",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2909,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 2909
+    },
+    "33": {
+      "name": "33",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4522,
+        405,
+        810
+      ],
+      "total": 5737
+    },
+    "34": {
+      "name": "34",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2100,
+        0,
+        0
+      ],
+      "total": 2100
+    },
+    "35": {
+      "name": "35",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        590,
+        0
+      ],
+      "total": 590
+    },
+    "36": {
+      "name": "36",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 0
+    },
+    "37": {
+      "name": "37",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 0
+    },
+    "38": {
+      "name": "38",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        600,
+        0,
+        0
+      ],
+      "total": 600
+    },
+    "39": {
+      "name": "39",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2100,
+        0
+      ],
+      "total": 2100
+    },
+    "40": {
+      "name": "40",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        370
+      ],
+      "total": 370
+    },
+    "41": {
+      "name": "41",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        350
+      ],
+      "total": 350
+    },
+    "42": {
+      "name": "42",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        300
+      ],
+      "total": 300
+    },
+    "43": {
+      "name": "43",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        250
+      ],
+      "total": 250
+    },
+    "44": {
+      "name": "44",
+      "months": [
+        0,
+        0,
+        0,
+        4250,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4240,
+        0
+      ],
+      "total": 8490
+    },
+    "Nr.": {
+      "name": "Nr.",
+      "months": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "total": 0
+    }
+  },
+  "expenses": {},
+  "months": [
+    "sausis",
+    "vasaris",
+    "kovas",
+    "balandis",
+    "gegu??",
+    "bir?elis",
+    "liepa",
+    "rugpj?tis",
+    "rugs?jis",
+    "spalis",
+    "lapkritis",
+    "gruodis"
+  ],
+  "lastUpdate": "2026-08-18T19:18:29.457Z"
+}
