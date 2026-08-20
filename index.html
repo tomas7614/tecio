@@ -653,24 +653,73 @@ function kpis(){
 /* ---------- insights ---------- */
 function insights(){
   const rev = D.revenue, exp = D.expenses, prof = D.profit;
+  const sumRev = sum(rev), sumExp = sum(exp), sumProf = sum(prof);
+  /* Saugios paieškos: jei kategorijos ar kliento nėra, puslapis nenulūžta. */
+  const grp = re => (D.expenseGroups.find(g=>re.test(g.name)) || {name:'—', total:0});
+  const share = (x,y) => y ? pct(x/y) : '—';
+  const cli = D.clients.slice().sort((x,y)=>y.total-x.total);
+
   const h1 = sum(rev.slice(0,6)), h2 = sum(rev.slice(6));
-  const dec = prof[11], feb = prof[1];
-  const top5 = sum(D.clients.slice(0,5).map(c=>c.total));
-  const recur = D.clients.filter(c=>c.months>=10);
-  const oneoff = D.clients.filter(c=>c.months===1);
-  const sal = D.expenseGroups.find(g=>g.name==='Atlyginimai').total;
-  const tax = D.expenseGroups.find(g=>/Mokesčiai/.test(g.name)).total;
-  const expiring = D.clients.filter(c=>c.contract && String(c.contract).includes('2019'));
-  const li = [
-    `<b>Metų rezultatas — ${eur(sum(prof))} pelno iš ${eur(sum(rev))} pajamų</b> (marža ${pct(sum(prof)/sum(rev))}). Marža plona: kiekvienas didesnis išlaidų šuolis iškart nuveda mėnesį į minusą.`,
-    `<b>Antras pusmetis stipresnis už pirmą:</b> ${eur(h2)} prieš ${eur(h1)} (+${pct(h2/h1-1)}). Stipriausi mėnesiai — rugsėjis ir spalis (${eur(rev[8])} ir ${eur(rev[9])}).`,
-    `<b>Du nuostolingi mėnesiai:</b> gruodis ${eur(dec)} ir vasaris ${eur(feb)}. Gruodžio išlaidos (${eur(exp[11])}) beveik dvigubai viršija įprastą mėnesį — didžiąją dalį sudaro metų pabaigos atlyginimų išmokos (Rita ${eur(8100)}, Artūras ${eur(8700)}) ir asociacijų / narystės mokėjimai (${eur(6029)}).`,
-    `<b>Pajamų koncentracija:</b> TOP 5 klientai duoda ${pct(top5/sum(rev))} pajamų, o vien Phillip Morris — ${pct(D.clients[0].total/sum(rev))}. Praradus vieną didįjį klientą, metų pelnas dingtų visas.`,
-    `<b>Pasikartojančios pajamos:</b> ${recur.length} klientai moka 10–12 mėn. per metus ir sudaro ${pct(sum(recur.map(c=>c.total))/sum(rev))} pajamų. Kiti ${oneoff.length} klientai — vienkartiniai projektai (${eur(sum(oneoff.map(c=>c.total)))}).`,
-    `<b>Išlaidų struktūra:</b> atlyginimai ${eur(sal)} (${pct(sal/sum(exp))}) ir mokesčiai ${eur(tax)} (${pct(tax/sum(exp))}) kartu sudaro ${pct((sal+tax)/sum(exp))} visų išlaidų. Tai grynai personalo verslas — trečia pagal dydį kategorija, ofisas (${eur(D.expenseGroups.find(g=>/Ofisas/.test(g.name)).total)}), yra daugiau nei tris kartus mažesnė už mokesčius, o visos likusios kartu tesudaro ${pct(1-(sal+tax+D.expenseGroups.find(g=>/Ofisas/.test(g.name)).total)/sum(exp))} išlaidų.`,
-    `<b>Grynieji auga, bet netolygiai:</b> nuo ${eur(D.cash[0])} sausio 1 d. iki ${eur(D.cash[11])} gruodžio 1 d. Piko taškas yra prieš pat gruodžio išmokas, todėl realus metų pabaigos likutis yra gerokai mažesnis.`,
-    `<b>Sutarčių rizika:</b> ${expiring.length} sutartys baigiasi 2019.12.31 — ${expiring.map(c=>`${c.name} (${eur(c.total)})`).join(', ')}. Kartu tai ${pct(sum(expiring.map(c=>c.total))/sum(rev))} metinių pajamų, kurias reikia atnaujinti.`
-  ];
+  const strongHalf = h2 >= h1 ? 'Antras' : 'Pirmas';
+  const hiHalf = Math.max(h1,h2), loHalf = Math.min(h1,h2);
+  const byRev = rev.map((v,i)=>[v,i]).sort((a,b)=>b[0]-a[0]);
+  const losses = prof.map((v,i)=>[v,i]).filter(x=>x[0]<0).sort((a,b)=>a[0]-b[0]);
+  const worstExp = exp.indexOf(Math.max(...exp));
+
+  const top5  = sum(cli.slice(0,5).map(c=>c.total));
+  const recur = cli.filter(c=>c.months>=10);
+  const oneoff= cli.filter(c=>c.months===1);
+  const sal   = grp(/Atlyginimai/).total;
+  const tax   = grp(/Mokes/).total;
+  const office= grp(/Ofisas|Biuras/).total;
+  const other = sumExp - sal - tax - office;
+  const expiring = cli.filter(c=>c.contract && String(c.contract).indexOf('2019') >= 0);
+
+  const li = [];
+
+  li.push(`<b>Metų rezultatas — ${eur(sumProf)} pelno iš ${eur(sumRev)} pajamų</b> (marža ${share(sumProf,sumRev)}). ` +
+    `Marža plona: kiekvienas didesnis išlaidų šuolis iškart nuveda mėnesį į minusą.`);
+
+  if (byRev.length > 1) {
+    li.push(`<b>${strongHalf} pusmetis stipresnis:</b> ${eur(hiHalf)} prieš ${eur(loHalf)} ` +
+      `(skirtumas ${share(hiHalf-loHalf, loHalf)}). Stipriausi mėnesiai — ${NOM[byRev[0][1]]} (${eur(byRev[0][0])}) ` +
+      `ir ${NOM[byRev[1][1]]} (${eur(byRev[1][0])}).`);
+  }
+
+  if (losses.length) {
+    li.push(`<b>Nuostolingi mėnesiai (${losses.length}):</b> ` +
+      losses.map(x=>`${NOM[x[1]]} ${eur(x[0])}`).join(', ') + '. ' +
+      `Didžiausios mėnesio išlaidos — ${NOM[worstExp]} (${eur(exp[worstExp])}), ` +
+      `t. y. ${share(exp[worstExp], sumExp/exp.length)} įprasto mėnesio.`);
+  } else {
+    li.push(`<b>Visi ${prof.length} mėnesiai pelningi.</b> Silpniausias — ${NOM[prof.indexOf(Math.min(...prof))]} (${eur(Math.min(...prof))}).`);
+  }
+
+  li.push(`<b>Pajamų koncentracija:</b> TOP 5 klientai duoda ${share(top5,sumRev)} pajamų` +
+    (cli[0] ? `, o vien ${cli[0].name} — ${share(cli[0].total,sumRev)}` : '') +
+    `. Praradus vieną didįjį klientą, metų pelnas dingtų visas.`);
+
+  li.push(`<b>Pasikartojančios pajamos:</b> ${recur.length} klientai moka 10–12 mėn. per metus ir sudaro ` +
+    `${share(sum(recur.map(c=>c.total)), sumRev)} pajamų. Kiti ${oneoff.length} klientai — vienkartiniai projektai ` +
+    `(${eur(sum(oneoff.map(c=>c.total)))}).`);
+
+  li.push(`<b>Išlaidų struktūra:</b> atlyginimai ${eur(sal)} (${share(sal,sumExp)}) ir mokesčiai ${eur(tax)} ` +
+    `(${share(tax,sumExp)}) kartu sudaro ${share(sal+tax,sumExp)} visų išlaidų. Tai grynai personalo verslas — ` +
+    `ofiso kategorija (${eur(office)}) yra gerokai mažesnė už mokesčius, o visos likusios kartu tesudaro ` +
+    `${share(other,sumExp)} išlaidų.`);
+
+  if (D.cash && D.cash.length) {
+    li.push(`<b>Grynieji auga, bet netolygiai:</b> nuo ${eur(D.cash[0])} ${GEN[0]} 1 d. iki ` +
+      `${eur(D.cash[D.cash.length-1])} ${GEN[D.cash.length-1]} 1 d. Piko taškas yra prieš pat metų pabaigos išmokas, ` +
+      `todėl realus metų pabaigos likutis yra mažesnis.`);
+  }
+
+  if (expiring.length) {
+    li.push(`<b>Sutarčių rizika:</b> ${expiring.length} sutartys baigiasi 2019 m. — ` +
+      expiring.map(c=>`${c.name} (${eur(c.total)})`).join(', ') + '. ' +
+      `Kartu tai ${share(sum(expiring.map(c=>c.total)), sumRev)} metinių pajamų, kurias reikia atnaujinti.`);
+  }
+
   document.getElementById('insights').innerHTML = li.map(t=>`<li>${t}</li>`).join('');
 }
 
@@ -712,16 +761,24 @@ THEMES.forEach(t=>{
   b.addEventListener('click',()=>setTheme(t.id));
   themeBox.appendChild(b);
 });
-function setTheme(id){
+/* Pasirinkta tema įsimenama naršyklėje ir lieka po perkrovimo. */
+const THEME_KEY = 'tecio.theme';
+function saveTheme(id){ try { localStorage.setItem(THEME_KEY, id); } catch(e){} }
+function loadTheme(){ try { return localStorage.getItem(THEME_KEY); } catch(e){ return null; } }
+function setTheme(id, remember){
   document.documentElement.dataset.theme = id;
   document.querySelectorAll('.swatch').forEach(s=>s.setAttribute('aria-pressed', String(s.dataset.t===id)));
+  if (remember !== false) saveTheme(id);
   render();
 }
 
 /* ---------- pristatymo parametrai (?klientas=…&tema=…) ---------- */
 const params = new URLSearchParams(location.search);
+/* Pirmenybė: ?tema=… → įsiminta tema → sisteminė tamsi/šviesi → Nordic */
+const savedTheme = loadTheme();
 const startTheme = THEMES.some(t=>t.id===params.get('tema')) ? params.get('tema')
-  : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'obsidian' : 'nordic');
+  : (THEMES.some(t=>t.id===savedTheme) ? savedTheme
+  : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'obsidian' : 'nordic'));
 const nameInput = document.getElementById('clientName');
 if (params.get('klientas')) nameInput.value = params.get('klientas');
 document.getElementById('stamp').textContent =
@@ -733,10 +790,20 @@ window.addEventListener('beforeprint', render);
 /* Naujų duomenų pritaikymas neperkraunant puslapio (naudoja „Atnaujinti"). */
 window.__APPLY__ = function (nd) {
   D = nd; window.__DATA__ = nd;
-  insights(); render();
+  headerSub(); insights(); render();
 };
 
-insights(); setTheme(startTheme);
+/* Antraštės paaiškinimas — skaičiai iš duomenų, ne įrašyti ranka. */
+function headerSub(){
+  const withRev = D.clients.filter(c=>c.total>0).length;
+  const rows = D.expenseGroups.reduce((n,g)=>n+((g.items&&g.items.length)||1),0);
+  document.querySelector('.sub').textContent =
+    `Agentūros metinis biudžetas: ${D.clients.length} klientai sąraše (${withRev} su pajamomis), ` +
+    `${rows} išlaidų eilutės ${D.expenseGroups.length} kategorijose, ${D.months.length} mėnesių. ` +
+    `Visos sumos eurais, be trečiųjų šalių.`;
+}
+
+headerSub(); insights(); setTheme(startTheme, false);
 
 }
 
