@@ -1,23 +1,5 @@
 {
   "clients": {
-    "2019": {
-      "name": "2019",
-      "months": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "total": 0
-    },
     "Alwark": {
       "name": "Alwark",
       "months": [
@@ -1279,6 +1261,24 @@
         632
       ],
       "total": 5247
+    },
+    "Grynieji s?skaitoje (m?nesio 1 d.)": {
+      "name": "Grynieji s?skaitoje (m?nesio 1 d.)",
+      "months": [
+        9078,
+        11547,
+        8181,
+        12550,
+        7873,
+        8033,
+        10059,
+        19911,
+        15955,
+        11856,
+        15170,
+        42483
+      ],
+      "total": 172696
     }
   },
   "months": [
@@ -1295,5 +1295,5 @@
     "lapkritis",
     "gruodis"
   ],
-  "lastUpdate": "2026-08-20T06:10:24.457Z"
+  "lastUpdate": "2026-08-20T06:11:57.536Z"
 }
