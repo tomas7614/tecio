@@ -1,6 +1,5 @@
 {
-  "liveEndpoint": "",
+  "liveEndpoint": "https://script.google.com/macros/s/AKfycbz-cJD1zGvE8CUEJX5L-eebd4yf6H_RR95viDmcV1xTAmnBLsBKmnTHORaF_ecNJpUvwQ/exec",
   "refreshOnOpen": true,
-  "refreshOnFocus": true,
-  "_pastaba": "liveEndpoint — Apps Script web app adresas (…/exec). Tuščias = tik data.json."
+  "refreshOnFocus": true
 }
